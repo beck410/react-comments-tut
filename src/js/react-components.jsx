@@ -1,6 +1,12 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var data = [
+    {id:1, author: 'Beck', text: 'this is beck\'s comment'},
+    {id:2, author: 'Penny', text: 'this is Penny\'s comment'},
+    {id:3, author: 'Dave', text: 'this is dave\'s comment'},
+];
+
 var Comment = React.createClass({
     render: function() {
     return (
@@ -16,10 +22,16 @@ var Comment = React.createClass({
 
 var CommentList = React.createClass({
     render: function() {
+        var commentNodes = this.props.data.map(comment => {
+                return (
+                    <Comment auther={comment.author} key={comment.key}>
+                        {comment.text}
+                    </Comment>
+                )
+        })
         return (
             <div className="comment-list">
-                <Comment author="Beck">This is one comment</Comment>
-                <Comment author="Dave">This is another comment</Comment>
+                {commentNodes}
             </div>
         )
     }
@@ -40,7 +52,7 @@ var CommentBox = React.createClass({
         return (
             <div className="comment-box">
                 <h1>Comments</h1>
-                <CommentList />
+                <CommentList data={this.props.data}/>
                 <CommentForm />
             </div>
         )
@@ -48,6 +60,6 @@ var CommentBox = React.createClass({
 });
 
 ReactDOM.render(
-  <CommentBox />,
+  <CommentBox data={data}/>,
   document.getElementById('react-comments')
 );
