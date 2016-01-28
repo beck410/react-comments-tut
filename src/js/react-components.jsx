@@ -1,12 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var data = [
-    {id:1, author: 'Beck', text: 'this is beck\'s comment'},
-    {id:2, author: 'Penny', text: 'this is Penny\'s comment'},
-    {id:3, author: 'Dave', text: 'this is dave\'s comment'},
-];
-
 var Comment = React.createClass({
     render: function() {
     return (
@@ -24,7 +18,7 @@ var CommentList = React.createClass({
     render: function() {
         var commentNodes = this.props.data.map(comment => {
                 return (
-                    <Comment auther={comment.author} key={comment.key}>
+                    <Comment auther={comment.author} key={comment.id}>
                         {comment.text}
                     </Comment>
                 )
@@ -48,11 +42,33 @@ var CommentForm = React.createClass({
 })
 
 var CommentBox = React.createClass({
+    loadComments: function() {
+        $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            cache: false,
+            success: data => {
+                this.setState({data: data})
+            },
+            error: (xhr, status, err) => {
+                console.error(this.props.url, status, err.toString());
+            }
+        })
+    },
+
+    getInitialState: function() {
+        return {data: []};
+    },
+
+    componentDidMount: function() {
+        this.loadComments();
+    },
+
     render: function() {
         return (
             <div className="comment-box">
                 <h1>Comments</h1>
-                <CommentList data={this.props.data}/>
+                <CommentList data={this.state.data}/>
                 <CommentForm />
             </div>
         )
@@ -60,6 +76,6 @@ var CommentBox = React.createClass({
 });
 
 ReactDOM.render(
-  <CommentBox data={data}/>,
+  <CommentBox url="/src/comments.json" />,
   document.getElementById('react-comments')
 );
