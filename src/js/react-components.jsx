@@ -9,6 +9,7 @@ var Comment = React.createClass({
               {this.props.author}
             </h2>
             {this.props.children}
+            <div key={this.props.key} onClick={this.props.onDelete.bind(null, this.props.id)} className="delete">Delete</div>
           </div>
         );
     }
@@ -16,19 +17,20 @@ var Comment = React.createClass({
 
 var CommentList = React.createClass({
     render: function() {
-        var commentNodes = this.props.data.map(comment => {
+        var onDelete = this.props.onDelete,
+            commentNodes = this.props.data.map(comment => {
                 return (
-                    <Comment author={comment.author} key={comment.id}>
+                    <Comment onDelete={onDelete} id={comment.key} key={comment.key} author={comment.author} >
                         {comment.text}
                     </Comment>
                 )
-        })
-        return (
-            <div className="comment-list">
-                {commentNodes}
-            </div>
-        )
-    }
+            })
+            return (
+                <div className="comment-list">
+                    {commentNodes}
+                </div>
+            )
+        }
 });
 
 var CommentForm = React.createClass({
@@ -69,6 +71,10 @@ var CommentForm = React.createClass({
 })
 
 var CommentBox = React.createClass({
+
+    handleDeleteComment: function(id) {
+        this.firebaseRef.child('comments/' + id).remove()
+    },
 
     handleCommentSubmit: function(comment) {
         this.postComment(comment);
@@ -118,7 +124,7 @@ var CommentBox = React.createClass({
         return (
             <div className="comment-box">
                 <h1>Comments</h1>
-                <CommentList data={this.state.data}/>
+                <CommentList onDelete={this.handleDeleteComment} data={this.state.data}/>
                 <CommentForm onCommentSubmit={this.handleCommentSubmit}/>
             </div>
         )
