@@ -1,5 +1,7 @@
-[
-    {"id":1, "author": "Beck", "text": "this is becks comment"},
-    {"id":2, "author": "Penn", "text": "this is Pennys comment"},
-    {"id":3, "author": "Dave", "text": "this is daves comment"}
-]
+{
+    "comments": [
+        {"author": "Beck", "text": "this is becks comment"},
+        {"author": "Penn", "text": "this is Pennys comment"},
+        {"author": "Dave", "text": "this is daves comment"}
+    ]
+}
