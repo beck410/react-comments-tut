@@ -15,7 +15,6 @@ var CommentBox = React.createClass({
     },
 
     handleEditComment: function(data) {
-
         var newState = this.state.data.map(comment => {
             if(comment.key == data.id) {
                 comment.editing = true;
