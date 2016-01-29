@@ -38,10 +38,18 @@ var CommentForm = React.createClass({
 
     render: function() {
         return (
-            <form className="comment-form" onSubmit={this.handleSubmit}>
-                <input type="text" placeholder="your name" value={this.state.author} onChange={this.handleAuthorChange} />
-                <input type="text" placeholder="say something..." value={this.state.text} onChange={this.handleTextChange} />
-                <input type="submit" value={this.submitBtnValue()} />
+            <form className="comment-form col-md-12" onSubmit={this.handleSubmit}>
+                <div className="form-group">
+                    <label htlmFor="authorField">Name:</label>
+                    <input type="text" placeholder="your name" className="form-control" id="authorField" value={this.state.author} onChange={this.handleAuthorChange} />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="textField">Comment:</label>
+                    <input type="text" placeholder="say something..." id="textField" className="form-control" value={this.state.text} onChange={this.handleTextChange} />
+                </div>
+                <div className="form-group">
+                    <button type="submit" className="btn btn-primary">{this.submitBtnValue()}</button>
+                </div>
             </form>
         )
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 import CommentNode from './comment-component.jsx';
 import CommentForm from './commentform-component.jsx';
+import Button from './button-component.jsx';
 
 var CommentList = React.createClass({
     buildCommentNodes: function() {
@@ -12,8 +13,13 @@ var CommentList = React.createClass({
                     </CommentNode>
                 )
             } else {
+                var cancelBtnClasses = "btn btn-warning",
+                    btnText = "Cancel";
                 return (
-                    <CommentForm onCommentSubmit={this.props.editSubmit} id={comment.key} author={comment.author} text={comment.text} editing={comment.editing}></CommentForm>
+                    <div>
+                        <CommentForm onCommentSubmit={this.props.editSubmit} id={comment.key} author={comment.author} text={comment.text} editing={comment.editing}></CommentForm>
+                        <Button btnType="cancel" classes={cancelBtnClasses} id={comment.key} eventHandler={this.props.cancelEditComment}>Cancel</Button>
+                    </div>
                 )
             }
         });

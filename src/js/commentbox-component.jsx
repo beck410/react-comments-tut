@@ -39,6 +39,15 @@ var CommentBox = React.createClass({
         this.postComment(comment);
     },
 
+    handleEditCancel: function(id) {
+        var newStateData = this.state.data.map(comment => {
+            comment.editing = false;
+            return comment;
+        });
+
+        this.setState({ data: newStateData });
+    },
+
     postComment: function(comment) {
         this.firebaseRef.child('comments').push({
             author: comment.author,
@@ -80,10 +89,19 @@ var CommentBox = React.createClass({
 
     render: function() {
         return (
-            <div className="comment-box">
+            <div className="comment-box container">
                 <h1>Comments</h1>
-                <CommentList editSubmit={this.handleCommentSubmit} onEdit={this.handleEditComment} onDelete={this.handleDeleteComment} data={this.state.data}/>
-                <CommentForm editing={false} onCommentSubmit={this.handleCommentSubmit} />
+                <div className="row">
+                    <div className="col-md-4">
+                        <h3>Add A New Comment</h3>
+                        <CommentForm editing={false} onCommentSubmit={this.handleCommentSubmit}/>
+                    </div>
+
+                    <div className="col-md-8">
+                        <h3>All Comments</h3>
+                        <CommentList cancelEditComment={this.handleEditCancel} editSubmit={this.handleCommentSubmit} onEdit={this.handleEditComment} onDelete={this.handleDeleteComment} data={this.state.data}/>
+                    </div>
+                </div>
             </div>
         )
     }

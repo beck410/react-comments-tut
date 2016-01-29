@@ -1,0 +1,14 @@
+.btn {
+    margin: 5px 2px;
+}
+
+.vertical-spacing {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.comment {
+    background: #ddd;
+}
