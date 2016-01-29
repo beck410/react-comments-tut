@@ -1,7 +1,8 @@
 import React from 'react';
 
 var Button = React.createClass({
-    btnClickHandler: function() {
+    btnClickHandler: function(e) {
+        e.preventDefault();
         this.props.eventHandler();
     },
 

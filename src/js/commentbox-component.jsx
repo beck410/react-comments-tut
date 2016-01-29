@@ -94,7 +94,7 @@ var CommentBox = React.createClass({
                 <div className="row">
                     <div className="col-md-4">
                         <h3>Add A New Comment</h3>
-                        <CommentForm editing={false} onCommentSubmit={this.handleCommentSubmit}/>
+                        <CommentForm cancelEditComment={this.handleEditCancel} editing={false} onCommentSubmit={this.handleCommentSubmit}/>
                     </div>
 
                     <div className="col-md-8">
